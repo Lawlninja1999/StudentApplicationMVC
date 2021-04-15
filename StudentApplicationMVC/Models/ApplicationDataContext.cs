@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StudentApplicationMVC.Models
 {
-    public class ApplicationDataContext:DbContext
+    public class ApplicationDataContext : DbContext
     {
-        public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options):base(options)
+        public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : base(options)
         {
 
         }
-       public DbSet<AddNewUnit> addNewUnits { get; set; }
+        public DbSet<AddUnitDetails> addUnitDetails { get; set; }
+        public DbSet<LogIn> LogIn { get; set; }
     }
 }

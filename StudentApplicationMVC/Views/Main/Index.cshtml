@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StudentApplicationMVC.Models.AddUnitDetails>
+
+@{
+    ViewData["Title"] = "List of all Units";
+}
+
+<h1>Units</h1>
+<form method="get">
+    <div class="input-group">
+        <input class="form-group" name="SearchTerm" id="SearchTerm"/>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitCode)
+            </td>
+            <td>
+              
+                <a asp-action="GetUnitDetials" asp-route-id="@item.AddUnitDetailsID">Details</a> |
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

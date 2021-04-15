@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentApplicationMVC.Models
 {
-    public class AddNewUnit
+    public class AddUnitDetails
     {
-        public int AddNewUnitID { get; set; }
+        public int AddUnitDetailsID { get; set; }
 
         [DisplayName("Unit Title")]
         public string UnitTitle { get; set; }

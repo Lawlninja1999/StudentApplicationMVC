@@ -1,12 +1,12 @@
-﻿@model StudentApplicationMVC.Models.AddNewUnit
+﻿@model StudentApplicationMVC.Models.AddUnitDetails
 
 @{
-    ViewData["Title"] = "AddUnit";
+    ViewData["Title"] = "Add a new Unit";
 }
 
 <h1>AddUnit</h1>
 
-<h4>AddNewUnit</h4>
+<h4>AddUnitDetails</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IformFile" class="control-label"></label>
-                <input asp-for="IformFile" class="form-control" />
+                <input asp-for="IformFile" class="form-control" accept=".docx,.doc"/>
                 <span asp-validation-for="IformFile" class="text-danger"></span>
             </div>
             <div class="form-group">

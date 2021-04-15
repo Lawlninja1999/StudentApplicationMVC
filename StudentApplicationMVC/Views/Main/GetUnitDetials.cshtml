@@ -1,13 +1,12 @@
-﻿@model StudentApplicationMVC.Models.AddNewUnit
+﻿@model StudentApplicationMVC.Models.AddUnitDetails
 
 @{
-    ViewData["Title"] = "GetUnitDetials";
+    ViewData["Title"] = Model.UnitCode.ToString();
 }
 
-<h1>GetUnitDetials</h1>
+<h1>Model.UnitCode.ToString()</h1>
 
 <div>
-    <h4>AddNewUnit</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -49,6 +48,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.AddNewUnitID">Edit</a> |
+   
     <a asp-action="Index">Back to List</a>
 </div>
