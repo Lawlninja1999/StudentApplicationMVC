@@ -21,6 +21,10 @@ namespace StudentApplicationMVC.Controllers
         }
         public IActionResult Register()
         {
+            if (TempData["Username"] != null)
+            {
+                return RedirectToAction("Index", "Main");
+            }
             return View();
         }
         [HttpPost]
@@ -31,17 +35,10 @@ namespace StudentApplicationMVC.Controllers
             {
                context.Add(logIn);
                 await context.SaveChangesAsync();
-              return  RedirectToAction("Index", "Home");
+              return  RedirectToAction("LogIn", "Main");
             }
             return View(logIn);
         }
-
-        /// <summary>
-        /// Method <c>Index</c> Shows a list of Units
-        /// </summary>
-        /// <returns></returns>
-        /// 
-
         public async Task<IActionResult> Index(string SearchTerm)
         {
             var search = await context.addUnitDetails.Where(m => m.UnitCode.Contains(SearchTerm) || m.UnitTitle.Contains(SearchTerm)).ToListAsync();
@@ -52,19 +49,14 @@ namespace StudentApplicationMVC.Controllers
             }
             return View(search);
         }
-        /// <summary>
-        ///  <c>Displays View for Adding a new unit</c><
-        /// </summary>
-        /// <returns></returns>
         public IActionResult AddUnit()
         {
+            if (TempData["AccessLevel"].ToString() != "Admin")
+            {
+                return RedirectToAction("Index", "Main");
+            }
             return View();
         }
-        /// <summary>
-        /// <c>AddUnitPost</c> Post method for addnew methods
-        /// </summary>
-        /// <param name="unit"></param>
-        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUnit([Bind("AddUnitDetailsID,UnitTitle,UnitCode,Assignment1,Assignment2,Exam,IformFile")] AddUnitDetails addUnit)
@@ -84,7 +76,7 @@ namespace StudentApplicationMVC.Controllers
                 }
                 context.Add(addUnit);
                 await context.SaveChangesAsync();
-               return RedirectToAction("Index", "Home");
+               return RedirectToAction("Index", "Main");
             }
             return View(addUnit);
         }
@@ -94,7 +86,6 @@ namespace StudentApplicationMVC.Controllers
         /// <param name="id"><c>the unit code for the unit</c></param>
         /// <returns></returns>
         /// 
-
         public async Task<IActionResult> GetUnitDetials(int? id)
         {
             if (id == null)
@@ -108,6 +99,61 @@ namespace StudentApplicationMVC.Controllers
                 return NotFound();
             }
             return View(unitcode);
+        }
+        public IActionResult LogIn()
+        {
+            if(TempData["Username"]!=null)
+            {
+                return RedirectToAction("Index", "Main");
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogIn(string Username,string Password)
+        {
+           if(Username==""||Password=="")
+            {
+                return NotFound();
+            }
+           var check= await context.LogIn.FirstOrDefaultAsync(m=>m.Username==Username&&m.Password==Password);
+            if(check==null)
+            {
+                return View();
+            }
+            else
+            {
+           
+                TempData["Username"] = check.Username;
+                TempData["ID"] = check.LogInID;
+                if (check.AccessLevel == "Admin")
+                {
+                    TempData["AccessLevel"] = check.AccessLevel;
+                }
+                TempData.Keep("Username");
+                TempData.Keep("AccessLevel");
+                return RedirectToAction("Index", "Main");
+            }
+        
+        }
+        public IActionResult Logout()
+        {
+            TempData.Clear();
+            return RedirectToAction("Index", "Main");
+        }
+
+        public async Task<IActionResult> ViewProfile(int? id)
+        {
+           if(id==null)
+            {
+                return NotFound();
+            }
+            var username = await context.LogIn.FirstOrDefaultAsync(m => m.LogInID == id);
+            if(username==null)
+            {
+                return NotFound();
+            }
+            return View(username);
         }
     }
 }

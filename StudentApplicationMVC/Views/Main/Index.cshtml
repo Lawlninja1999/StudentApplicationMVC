@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<StudentApplicationMVC.Models.AddUnitDetails>
 
+
 @{
     ViewData["Title"] = "List of all Units";
 }
 
-<h1>Units</h1>
+<h1>all unit</h1>
 <form method="get">
     <div class="input-group">
-        <input class="form-group" name="SearchTerm" id="SearchTerm"/>
+        <input class="form-control" name="SearchTerm" id="SearchTerm"/>
         <div class="input-group-append">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary" style="width:75px">Search</button>
         </div>
     </div>
 </form>
@@ -17,6 +18,7 @@
     <thead>
         <tr>
             <th>
+                @TempData["Username"]
                 @Html.DisplayNameFor(model => model.UnitTitle)
             </th>
             <th>

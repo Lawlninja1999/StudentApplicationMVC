@@ -9,20 +9,54 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StudentApplicationMVC</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="Index">Student Application</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="AddUnit">Add new unit</a>
+                <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
+                    <ul class="navbar-nav flex-grow-1 ">
+                        <li class="nav-item col-md-8 ">
+                            <ul class="navbar-nav flex-grow-1 ">
+                                @if (TempData.ContainsKey("AccessLevel"))
+                                {
+                                    <li class="nav-item " >
+                                        <a class="nav-link text-dark " asp-area="" asp-controller="Main" asp-action="AddUnit">Add a new unit!</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Index">View all units</a>
+                                    </li>
+                                }
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Index">View list of units</a>
+                        <li class="nav-item col-md-4 ">
+                            <ul class="navbar-nav flex-grow-1 ">
+                                @if (TempData["Username"] != null)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Logout">Logout</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-action="ViewProfile" asp-controller="Main" asp-route-id="@TempData["ID"].ToString()">Go to profile</a> |
+                                    </li>
+                                    TempData.Keep();
+                                }
+                                else
+                                {
+                                    <li class="nav-item ">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Register">Create Account</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="LogIn">Log in</a>
+                                    </li>
+                                }
+
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -36,9 +70,6 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - StudentApplicationMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
