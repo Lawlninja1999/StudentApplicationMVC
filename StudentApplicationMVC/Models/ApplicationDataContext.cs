@@ -8,7 +8,8 @@ namespace StudentApplicationMVC.Models
         {
 
         }
-        public DbSet<AddUnitDetails> addUnitDetails { get; set; }
-        public DbSet<LogIn> LogIn { get; set; }
+        public DbSet<UnitDetails> UnitDetails { get; set; }
+        public DbSet<StudentDetails> StudentDetails { get; set; }
+        public DbSet<StudentGrades> Grades { get; set; }
     }
 }

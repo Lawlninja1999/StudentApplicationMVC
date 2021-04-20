@@ -1,9 +1,13 @@
-﻿@model StudentApplicationMVC.Models.AddUnitDetails
+﻿@model StudentApplicationMVC.Models.UnitDetails
 
 @{
-    ViewData["Title"] ="List of units";
+    ViewData["Title"] = "GetUnitDetials";
 }
+
+<h1>GetUnitDetials</h1>
+
 <div>
+    <h4>UnitDetails</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -19,31 +23,20 @@
             @Html.DisplayFor(model => model.UnitCode)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment1)
+            @Html.DisplayNameFor(model => model.Campus)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Assignment1)
+            @Html.DisplayFor(model => model.Campus)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment2)
+            @Html.DisplayNameFor(model => model.Teacher)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Assignment2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Exam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Exam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnitOutline)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnitOutline)
+            @Html.DisplayFor(model => model.Teacher)
         </dd>
     </dl>
 </div>
 <div>
+    <a asp-action="Edit" asp-route-id="@Model.UnitDetailsID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

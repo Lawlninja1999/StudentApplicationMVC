@@ -1,28 +1,24 @@
-﻿@model IEnumerable<StudentApplicationMVC.Models.AddUnitDetails>
-
+﻿@model IEnumerable<StudentApplicationMVC.Models.UnitDetails>
 
 @{
-    ViewData["Title"] = "List of all Units";
+    ViewData["Title"] = "List of Units";
 }
 
-<h1>all unit</h1>
-<form method="get">
-    <div class="input-group">
-        <input class="form-control" name="SearchTerm" id="SearchTerm"/>
-        <div class="input-group-append">
-            <button type="submit" class="btn btn-primary" style="width:75px">Search</button>
-        </div>
-    </div>
-</form>
+<h1>List of Available Units</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @TempData["Username"]
                 @Html.DisplayNameFor(model => model.UnitTitle)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UnitCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Campus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher)
             </th>
             <th></th>
         </tr>
@@ -37,9 +33,13 @@
                 @Html.DisplayFor(modelItem => item.UnitCode)
             </td>
             <td>
-              
-                <a asp-action="GetUnitDetials" asp-route-id="@item.AddUnitDetailsID">Details</a> |
-               
+                @Html.DisplayFor(modelItem => item.Campus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.UnitDetailsID">Details</a>
             </td>
         </tr>
 }
