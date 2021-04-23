@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentApplicationMVC.Models;
 
 namespace StudentApplicationMVC.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    partial class ApplicationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210421133420_test5")]
+    partial class test5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,15 +34,12 @@ namespace StudentApplicationMVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentNumber")
@@ -50,7 +49,6 @@ namespace StudentApplicationMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentDetailsID");
@@ -75,56 +73,16 @@ namespace StudentApplicationMVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Semester")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<int>("StudentDetailsID")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UnitDetailsID")
                         .HasColumnType("int");
 
                     b.HasKey("StudentGradesID");
 
-                    b.HasIndex("StudentDetailsID");
-
                     b.HasIndex("UnitDetailsID");
 
                     b.ToTable("Grades");
-                });
-
-            modelBuilder.Entity("StudentApplicationMVC.Models.Teachers", b =>
-                {
-                    b.Property<int>("TeachersID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccessLevel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TeacherNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TeacherPhoto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TeachersID");
-
-                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("StudentApplicationMVC.Models.UnitDetails", b =>
@@ -135,47 +93,27 @@ namespace StudentApplicationMVC.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Campus")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeachersID")
-                        .HasColumnType("int");
+                    b.Property<string>("Teacher")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnitCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnitTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UnitDetailsID");
-
-                    b.HasIndex("TeachersID");
 
                     b.ToTable("UnitDetails");
                 });
 
             modelBuilder.Entity("StudentApplicationMVC.Models.StudentGrades", b =>
                 {
-                    b.HasOne("StudentApplicationMVC.Models.StudentDetails", "Student")
-                        .WithMany("Grades")
-                        .HasForeignKey("StudentDetailsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StudentApplicationMVC.Models.UnitDetails", "Units")
                         .WithMany("Grades")
                         .HasForeignKey("UnitDetailsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudentApplicationMVC.Models.UnitDetails", b =>
-                {
-                    b.HasOne("StudentApplicationMVC.Models.Teachers", "Teachers")
-                        .WithMany("Units")
-                        .HasForeignKey("TeachersID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

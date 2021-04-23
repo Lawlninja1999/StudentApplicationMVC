@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StudentApplicationMVC</title>
+    <title>@ViewData["Title"] - ECU Student portl</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -11,51 +11,59 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="GetAllUnits">Student Application</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="HomeScreen">Student Application</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
                     <ul class="navbar-nav flex-grow-1 ">
-                        <li class="nav-item col-md-8 ">
+                        <li class="nav-item ">
                             <ul class="navbar-nav flex-grow-1 ">
-                                @if (TempData.ContainsKey("AccessLevel"))
+                                @{
+                                    TempData.Keep();
+
+                                        }
+                                @if (TempData.ContainsKey("Teacher"))
                                 {
-                                    <li class="nav-item ">
-                                        <a class="nav-link text-dark " asp-area="" asp-controller="Main" asp-action="AddUnit">Add a new unit!</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Logout">Logout</a>
                                     </li>
                                     <li class="nav-item ">
                                         <a class="nav-link text-dark " asp-area="" asp-controller="Main" asp-action="AddNewUnitGrade">Add Grade</a>
                                     </li>
-                                }
-                                else
-                                {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="GetAllUnits">View all units</a>
+                                        <a class="nav-link text-dark" asp-controller="Teachers" asp-action="ViewProfile" asp-route-id="@TempData["ID"]">Go to profile</a>
                                     </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link text-dark " asp-area="" asp-controller="Main" asp-action="AddUnit">Add a new unit!</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="HomeScreen">View all units</a>
+                                    </li>
+                                    TempData.Keep();
                                 }
-                            </ul>
-                        </li>
-                        <li class="nav-item col-md-4 ">
-                            <ul class="navbar-nav flex-grow-1 ">
-                                @if (TempData["Username"] != null)
+                                else if (TempData.ContainsKey("Student"))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Logout">Logout</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-action="ViewProfile" asp-controller="Main" asp-route-id="@TempData["ID"].ToString()">Go to profile</a> |
+                                        <a class="nav-link text-dark" asp-controller="Students" asp-action="UserProfile" asp-route-id="@TempData["MD"]">Go to profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="HomeScreen">View all units</a>
                                     </li>
                                     TempData.Keep();
                                 }
+
                                 else
                                 {
                                     <li class="nav-item ">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Register">Create Account</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Teachers" asp-action="LogNewTeacher">Create Account</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="LogIn">Log in</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="LogInPortal">Log in</a>
                                     </li>
                                 }
 

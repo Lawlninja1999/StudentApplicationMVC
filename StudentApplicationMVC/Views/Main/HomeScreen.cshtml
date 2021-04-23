@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<StudentApplicationMVC.Models.UnitDetails>
 
 @{
-    ViewData["Title"] = "List of Units";
+    ViewData["Title"] = "HomeScreen";
 }
 
-<h1>List of Available Units</h1>
+<h1>HomeScreen</h1>
 <table class="table">
     <thead>
         <tr>
@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.Campus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher)
+                @Html.DisplayNameFor(model => model.Teachers)
             </th>
             <th></th>
         </tr>
@@ -36,10 +36,10 @@
                 @Html.DisplayFor(modelItem => item.Campus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Teacher)
+                @Html.DisplayFor(modelItem => item.Teachers.FirstName)  @Html.DisplayFor(modelItem => item.Teachers.LastName)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.UnitDetailsID">Details</a>
+                <a asp-action="GetUnitDetials" asp-route-id="@item.UnitDetailsID">Details</a>
             </td>
         </tr>
 }

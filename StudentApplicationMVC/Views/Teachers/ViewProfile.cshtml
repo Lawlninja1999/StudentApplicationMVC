@@ -1,4 +1,4 @@
-﻿@model StudentApplicationMVC.Models.StudentDetails
+﻿@model StudentApplicationMVC.Models.Teachers
 
 @{
     ViewData["Title"] = "ViewProfile";
@@ -7,7 +7,7 @@
 <h1>ViewProfile</h1>
 
 <div>
-    <h4>StudentDetails</h4>
+    <h4>Teachers</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,34 +23,16 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentPhoto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudentPhoto)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Username)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Username)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Credits)
+            @Html.DisplayNameFor(model => model.TeacherNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Credits)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudentNumber)
+            @Html.DisplayFor(model => model.TeacherNumber)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AccessLevel)
@@ -58,9 +40,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AccessLevel)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TeacherPhoto)
+        </dt>
+        <dd class = "col-sm-10">
+          <img src="@("~/ApplicationImages/TeacherImage/"+ Model.TeacherPhoto)" asp-append-version="true" width="300px"/>
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.StudentDetailsID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="HomeScreen">Back to List</a>
 </div>

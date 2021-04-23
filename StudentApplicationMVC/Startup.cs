@@ -44,13 +44,17 @@ namespace StudentApplicationMVC
             app.UseRouting();
 
             app.UseAuthorization();
-
+       
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Main}/{action=GetAllUnits}/{id?}");
+                    pattern: "{controller=Main}/{action=HomeScreen}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller}/{action}/{id?}");
             });
+           
         }
     }
 }

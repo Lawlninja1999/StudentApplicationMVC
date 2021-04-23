@@ -11,5 +11,6 @@ namespace StudentApplicationMVC.Models
         public DbSet<UnitDetails> UnitDetails { get; set; }
         public DbSet<StudentDetails> StudentDetails { get; set; }
         public DbSet<StudentGrades> Grades { get; set; }
+        public DbSet<Teachers> Teachers { get; set; }
     }
 }
