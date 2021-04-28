@@ -13,7 +13,7 @@
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3">
-                  Full Name:
+                    Full Name:
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.FirstName)  @Html.DisplayFor(model => model.LastName)
@@ -25,17 +25,26 @@
                     @Html.DisplayFor(model => model.Username)
                 </dd>
                 <dt class="col-sm-3">
-                   TeacherID
+                    TeacherID
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.TeacherNumber)
                 </dd>
+
                 <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.AccessLevel)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.AccessLevel)
                 </dd>
+               <dt><strong>Teacher is currenting teaching the following units<br /></strong></dt>
+                @foreach (var item in Model.Units.Where(m => m.TeachersID == Model.TeachersID))
+                {
+            <dd class="col-sm-10">
+                (@item.UnitCode)  @item.UnitTitle
+            <br /></dd>
+                }
+
             </dl>
         </div>
     </div>

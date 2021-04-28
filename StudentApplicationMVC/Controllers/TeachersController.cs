@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentApplicationMVC.Models;
 using System;
@@ -71,7 +72,9 @@ namespace StudentApplicationMVC.Controllers
             {
                 return NotFound();
             }
-            var usernam = await context.Teachers.FirstOrDefaultAsync(m => m.TeachersID == id);
+     
+
+            var usernam = await context.Teachers.Include(m=>m.Units).FirstOrDefaultAsync(m => m.TeachersID == id);
             if (usernam != null)
             {
                 return View(usernam);
