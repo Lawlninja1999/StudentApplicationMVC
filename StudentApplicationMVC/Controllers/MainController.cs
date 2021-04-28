@@ -21,21 +21,50 @@ namespace StudentApplicationMVC.Controllers
             this.webRoot = webRoot;
         }
         //REturn list of units
-        public async Task<IActionResult> HomeScreen(string SearchTerm)
+        public async Task<IActionResult> HomeScreen(string SearchTerm, string Table)
         {
-            if (string.IsNullOrEmpty(SearchTerm))
+        
+            if (string.IsNullOrEmpty(SearchTerm)&& string.IsNullOrEmpty(Table))
             {
               var ls= context.UnitDetails.Include(m => m.Teachers);
+                return View(await ls.ToListAsync());
+            }
+            else if (string.IsNullOrEmpty(SearchTerm) && Table== "Sort by unit title")
+            {
+                var ls = context.UnitDetails.Include(m => m.Teachers).OrderBy(m => m.UnitTitle);
+                return View(await ls.ToListAsync());
+            }
+            else if (string.IsNullOrEmpty(SearchTerm) && Table == "Sort by unit code")
+            {
+                var ls = context.UnitDetails.Include(m => m.Teachers).OrderBy(m => m.UnitCode);
                 return View(await ls.ToListAsync());
             }
 
             var Search = await context.UnitDetails.Where(m => m.UnitTitle.Contains(SearchTerm) ||
             m.UnitCode.Contains(SearchTerm) || m.Campus.Contains(SearchTerm)).ToListAsync();
-            if (Search == null)
+            if (Search.Count >= 1 && string.IsNullOrEmpty(Table))
+            {
+                var ls = context.UnitDetails.Include(m => m.Teachers).Where(m => m.Campus.Contains(SearchTerm) ||
+                m.UnitCode.Contains(SearchTerm) || m.UnitTitle.Contains(SearchTerm));
+                return View(await ls.ToListAsync());
+            }
+            else if (Search.Count >= 1 && Table == "Sort by unit title")
+            {
+                var ls = context.UnitDetails.Include(m => m.Teachers).Where(m => m.Campus.Contains(SearchTerm) ||
+                m.UnitCode.Contains(SearchTerm) || m.UnitTitle.Contains(SearchTerm)).OrderBy(m => m.UnitTitle);
+                return View(await ls.ToListAsync());
+            }
+            else if (Search.Count >= 1 && Table == "Sort by unit code")
+            {
+                var ls = context.UnitDetails.Include(m => m.Teachers).Where(m => m.Campus.Contains(SearchTerm) ||
+                 m.UnitCode.Contains(SearchTerm) || m.UnitTitle.Contains(SearchTerm)).OrderBy(m=>m.UnitCode);
+                return View(await ls.ToListAsync());
+            }
+            else
             {
                 return View(await context.UnitDetails.Include(m => m.Teachers).ToListAsync());
             }
-            return View(Search);
+          
 
         }
         public IActionResult AddUnit()
@@ -69,7 +98,7 @@ namespace StudentApplicationMVC.Controllers
                 return NotFound();
             }
            
-            var unitcode = await context.UnitDetails.FirstOrDefaultAsync(m => m.UnitDetailsID == id);
+            var unitcode = await context.UnitDetails.Include(m=>m.Teachers).FirstOrDefaultAsync(m => m.UnitDetailsID == id);
            
             if (unitcode == null)
             {
@@ -132,6 +161,7 @@ namespace StudentApplicationMVC.Controllers
                 TempData["Teacher"] = Teacher.Username;
                 TempData["AccessLevel"] = Teacher.AccessLevel;
                 TempData["ID"] = Teacher.TeachersID;
+                TempData.Keep("Teacher");
 
                 return RedirectToAction("HomeScreen", "Main");
             }
@@ -140,7 +170,7 @@ namespace StudentApplicationMVC.Controllers
             {
                 TempData["Student"] = Student.Username;
                 TempData["MD"] = Student.StudentDetailsID;
-                TempData.Keep("Username");
+                TempData.Keep("Student");
               
                 return RedirectToAction("HomeScreen", "Main");
             }

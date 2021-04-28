@@ -4,50 +4,42 @@
     ViewData["Title"] = "ViewProfile";
 }
 
-<h1>ViewProfile</h1>
+<h1>  @Html.DisplayFor(model => model.Username)</h1>
 
-<div>
-    <h4>Teachers</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TeacherNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TeacherNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccessLevel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccessLevel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TeacherPhoto)
-        </dt>
-        <dd class = "col-sm-10">
-          <img src="@("~/ApplicationImages/TeacherImage/"+ Model.TeacherPhoto)" asp-append-version="true" width="300px"/>
-        </dd>
-    </dl>
+
+<div class="card-deck row card-group col-md-12"  >
+    <div class="card m-3 col-6" style="min-height:20.00%;min-width:10rem">
+        <img  class="card-img-top" src="@("~/ApplicationImages/TeacherImage/"+ Model.TeacherPhoto)" asp-append-version="true" width="300px" />
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                  Full Name:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FirstName)  @Html.DisplayFor(model => model.LastName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Username)
+                </dd>
+                <dt class="col-sm-3">
+                   TeacherID
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TeacherNumber)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.AccessLevel)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.AccessLevel)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
 <div>
-    <a asp-action="HomeScreen">Back to List</a>
+    <a asp-action="HomeScreen" asp-controller="Main">Go Back</a>
 </div>
