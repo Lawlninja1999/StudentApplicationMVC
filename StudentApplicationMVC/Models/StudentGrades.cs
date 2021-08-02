@@ -17,9 +17,6 @@ namespace StudentApplicationMVC.Models
         public int Exam { get; set; }
         [Required,StringLength(2)]
         public string Semester { get; set; }
-        
-
-
         public virtual UnitDetails Units { get; set; }
         public int UnitDetailsID { get; set; }
         public virtual StudentDetails Student { get; set; }
